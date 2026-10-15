@@ -1,10 +1,14 @@
-Expense Tracker
+## Expense Tracker with Live Currency Conversion
 
 About the Project
 
-This is an Expense Tracker project that Eddie and I worked on. The project helps users record their expenses and keep track of their spending. It also allows users to select different currencies and convert amounts using exchange rates.
+This is an Expense Tracker project that Eddie and Nacima worked on. The project helps users record their expenses and keep track of their spending. It also allows users to select different currencies and convert amounts using exchange rates.
 
-Features
+## Live Demo
+
+https://eddiemuhia1.github.io/expense-tracker/
+
+## Features
 
 Users can add new expenses.
 
@@ -34,7 +38,7 @@ Jest
 
 ESLint
 
-Installation
+## Installation
 
 First, clone the repository from GitHub.
 
@@ -54,16 +58,10 @@ Run the following command to execute the tests.
 
 npm test
 
-What I Learned
+## What We'd Improve With More Time
 
-While working on this project, I learned how to use JavaScript modules, work with arrays and objects, manage application state, display expenses on a webpage, and work with Git and GitHub.
+Right now the app doesn't save data between page refreshes, so adding localStorage would make it actually usable day-to-day. The styling could use a bit more polish on mobile too.
 
-Contributors
+## What we Learned
 
-Eddie Muhia
-
-Nacima Muhidin
-
-Conclusion
-
-This project helped me practise my web development skills and understand how different parts of a JavaScript application work together.
+While working on this project, we learned how to use JavaScript modules, work with arrays and objects, manage application state, display expenses on a webpage, and work with Git and GitHub. This project pushed us to actually use JavaScript modules properly instead of cramming everything into one file.
