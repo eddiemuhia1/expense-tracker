@@ -24,7 +24,7 @@ body{
   align-items: baseline;
   margin: 16px 0 0;
   padding-top: 16px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid #CBD5E1;
   font-weight: 700;
 }
  
@@ -75,7 +75,34 @@ label {
   justify-content: space-between;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #CBD5E1;
+}
+.expense-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.expense-description {
+  font-weight: 600;
+  color: darkslategray;
+}
+
+.expense-category {
+  font-size: 0.8rem;
+  color: white;
+  background-color: #0F766E;
+  padding: 2px 8px;
+  border-radius: 12px;
+  width: fit-content;
+  text-transform: capitalize;
+}
+
+.expense-amount {
+  font-weight: 700;
+  color: #0F766E;
+  font-size: 1rem;
+  white-space: nowrap;
 }
 input,
 select {
