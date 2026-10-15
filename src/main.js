@@ -1,68 +1,80 @@
-
-import {
-  createInitialState,
-  addExpense,
-  removeExpense
-} from "./state.js";
-
-import {
-  calculateTotal,
-  formatMoney
-} from "./utils.js";
-
-import {
-  drawExpense,
-  clearExpenses,
-  displayTotal
-} from "./ui.js";
+import { fetchRates } from './api.js';
+import { createInitialState, addExpense, setRates, setHomeCurrency } from './state.js';
+import { calculateTotal, formatMoney, filterByCategory } from './utils.js';
+import { drawExpense, clearExpenses, displayTotal, fillCurrencySelect } from './ui.js';
 
 let state = createInitialState();
 
-const expenseForm = document.getElementById("entryForm");
-const expensesContainer = document.getElementById("expensesContainer");
-const totalAmount = document.getElementById("totalAmount");
+const homeCurrencySelect = document.querySelector('#homeCurrency');
+const expenseCurrencySelect = document.querySelector('#expenseCurrency');
+const statusText = document.querySelector('#status');
+const expenseForm = document.querySelector('#expenseForm');
+const expensesContainer = document.querySelector('#expenseList');
+const totalAmountEl = document.querySelector('#totalAmount');
+const categoryFilter = document.querySelector('#categoryFilter');
 
-function renderExpenses() {
-  clearExpenses(expensesContainer);
-
-  state.expenses.forEach(expense => {
-    drawExpense(expense, expensesContainer);
+// Safety check so a wrong ID shows up immediately and clearly
+[homeCurrencySelect, expenseCurrencySelect, statusText, expenseForm, expensesContainer, totalAmountEl, categoryFilter]
+  .forEach((el, i) => {
+    if (!el) console.error(`Element #${i} is null — check your HTML ids.`);
   });
 
-  const total = calculateTotal(state.expenses);
+function renderExpenses() {
+  console.log('renderExpenses running. Current expenses:', state.expenses);
+  clearExpenses(expensesContainer);
 
-  displayTotal(
-    formatMoney(total, state.homeCurrency),
-    totalAmount
-  );
+  const filtered = filterByCategory(state.expenses, categoryFilter.value);
+  filtered.forEach(expense => drawExpense(expense, expensesContainer));
+
+  const total = calculateTotal(filtered, state.homeCurrency, state.rates);
+  console.log('Calculated total:', total);
+  displayTotal(formatMoney(total, state.homeCurrency), totalAmountEl);
 }
 
-expenseForm.addEventListener("submit", function (event) {
+async function loadRates(baseCurrency) {
+  statusText.textContent = `Loading rates for ${baseCurrency}...`;
+  try {
+    const rates = await fetchRates(baseCurrency);
+    state = setRates(state, rates);
+    state = setHomeCurrency(state, baseCurrency);
+
+    const allCodes = Object.keys(rates);
+    fillCurrencySelect(homeCurrencySelect, allCodes, baseCurrency);
+    fillCurrencySelect(expenseCurrencySelect, allCodes, allCodes.includes('USD') ? 'USD' : allCodes[0]);
+
+    statusText.textContent = `Loaded ${allCodes.length} currencies.`;
+    renderExpenses();
+  } catch (error) {
+    statusText.textContent = error.message;
+    console.error('loadRates failed:', error);
+  }
+}
+
+expenseForm.addEventListener('submit', function (event) {
   event.preventDefault();
+  console.log('Submit handler fired.'); // if this never logs, it's the validation issue
 
-  const title = document.getElementById("expenseTitle").value;
-  const amount = Number(document.getElementById("expenseAmount").value);
-  const category = document.getElementById("expenseCategory").value;
-  const currency = state.homeCurrency;
+  const description = document.getElementById('description').value;
+  const amount = Number(document.getElementById('amount').value);
+  const category = document.getElementById('category').value;
+  const currency = expenseCurrencySelect.value;
 
-  if (!title || amount <= 0) {
-    alert("Please enter a valid expense.");
+  console.log({ description, amount, category, currency });
+
+  if (!description || amount <= 0 || !category) {
+    alert('Please fill in description, a valid amount, and a category.');
     return;
   }
 
-  const expense = {
-    id: Date.now(),
-    title,
-    amount,
-    category,
-    currency
-  };
-
+  const expense = { id: Date.now(), description, amount, category, currency };
   state = addExpense(state, expense);
+  console.log('New state after adding expense:', state);
 
   expenseForm.reset();
-
   renderExpenses();
 });
 
-renderExpenses();
+homeCurrencySelect.addEventListener('change', (event) => loadRates(event.target.value));
+categoryFilter.addEventListener('change', renderExpenses);
+
+loadRates('KES');
