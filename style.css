@@ -1,0 +1,148 @@
+body{
+    font-family: Quicksand;
+    background-color: aliceblue;
+    margin: 30px;
+    line-height: 1.5;
+    color: darkslategray;
+}
+#header{
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+.card {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1; 
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-weight: 700;
+}
+ 
+.total-amount {
+  font-size: 1.75rem;
+  color: var(--primary);
+}
+ 
+h2 {
+    color: teal;
+    margin-bottom: 20px;
+}
+#expense-header{
+    text-align: center;
+}
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 12px;
+}
+
+/* Category filter */
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Expense list*/
+
+.expense-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ 
+.expense-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: white;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid lightblue;
+    border-color: steelblue;
+}
+
+/* Button styling */
+
+button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    width: 30%;
+    background-color: #0F766E; 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #115E59; 
+}
+section {
+    transition: box-shadow 0.3s ease;
+}
+
+section:hover {
+    box-shadow: 0 5px 14px lightgray;
+}
+/* Footer */
+footer {
+  max-width: 500px;
+  margin: 30px auto 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #475569;
+}
+ 
+footer a {
+  color: #0F766E;
+}
+ 
+
+@media (max-width: 600px) {
+    body {
+        margin: 15px;
+    }
+
+    section {
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+}
