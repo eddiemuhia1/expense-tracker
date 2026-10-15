@@ -17,7 +17,7 @@
       <label for="homeCurrency">Home currency: </label>
       <select id="homeCurrency" name="homeCurrency" required></select>
 
-      <p class="total">Total <span id="totalAmount">0.00</span></p>
+      <p class="total">Total <span id="totalAmount" class="total-amount">0.00</span></p>
 
     
       <p class="status" id="status" role="status"></p>
@@ -42,13 +42,12 @@
       
          <label for="category">Category</label>
         <select id="category" name="category" required>
-          <option value="" disabled selected>Select a category</option>
           <option value="food">Food &amp; Dining</option>
           <option value="transport">Transport</option>
           <option value="utilities">Bills &amp; Utilities</option>
           <option value="shopping">Shopping</option>
           <option value="entertainment">Entertainment</option>
-          <option>Other</option>
+          <option value="other">Other</option>
         </select>
          <button type="submit">Add Expense</button>
       </form>
@@ -59,13 +58,13 @@
     <div class="filter">
       <label for="categoryFilter">Filter by Category:</label>
       <select id="categoryFilter">
-        <option value="" disabled selected>Select a category</option>
+          <option value="" selected> All Categories</option>
           <option value="food">Food &amp; Dining</option>
           <option value="transport">Transport</option>
           <option value="utilities">Bills &amp; Utilities</option>
           <option value="shopping">Shopping</option>
           <option value="entertainment">Entertainment</option>
-          <option>Other</option>
+          <option value="other">Other</option>
       </select>
     </div>
 
@@ -77,6 +76,6 @@
       <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
     </footer>  
 
-  <script src="src/main.js" defer></script>
+  <script type="module" src="src/main.js" ></script>
 </body>
 </html>
